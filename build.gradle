@@ -1,0 +1,36 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'info.solidsoft.pitest' version '1.15.0'
+    id 'groovy'
+}
+
+application {
+    mainClass.set("com.aor.game.Application")
+}
+
+group = 'com.aor'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+pitest {
+    junit5PluginVersion = '1.0.0'
+    jvmArgs = ['-Xmx2048m']
+    threads = 4
+}
+
+dependencies {
+    testImplementation 'net.jqwik:jqwik:1.9.2'
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation group: 'com.googlecode.lanterna', name: 'lanterna', version: '3.1.1'
+    testImplementation 'org.mockito:mockito-core:3.7.7'
+    pitest 'org.pitest:pitest-junit5-plugin:1.2.1'
+}
+
+test {
+    useJUnitPlatform()
+}
